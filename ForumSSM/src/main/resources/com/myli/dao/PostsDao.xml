@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myli.dao.PostsDao">
+
+    <select id="selectListVo" resultType="com.myli.domain.PostsUserVo">
+        select
+            posts.*,
+            username
+        from posts, user
+        where posts.uid = user.uid;
+    </select>
+</mapper>

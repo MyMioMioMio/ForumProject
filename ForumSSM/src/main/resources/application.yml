@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ForumSSM
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ljh3927322
+    url: jdbc:mysql:///forums_db?useSSL=false&serverTimezone=UTC
+
+server:
+  port: 80
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
