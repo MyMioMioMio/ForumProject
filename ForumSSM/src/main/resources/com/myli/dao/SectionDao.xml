@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myli.dao.SectionDao">
+
+    <select id="selectAllVo" resultType="com.myli.domain.PostSectionVo">
+        select
+            pid,
+            posts_title,
+            posts_description,
+            posts.sid,
+            section_name,
+            section_photo,
+            posts_dateTime
+        from posts,
+             section
+        <where>
+            posts.sid = section.sid and
+            section_name like #{sectionName}
+        </where>
+        order by posts_dateTime desc
+    </select>
+</mapper>

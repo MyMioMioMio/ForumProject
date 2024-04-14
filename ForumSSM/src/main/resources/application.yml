@@ -6,7 +6,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: ljh3927322
-    url: jdbc:mysql:///forums_db?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql:///forums_db?useSSL=false
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
 
 server:
   port: 80
@@ -14,3 +17,8 @@ server:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+# --------------------------用户自定义项--------------------------------------
+File:
+  FileResource: E:\forumresp

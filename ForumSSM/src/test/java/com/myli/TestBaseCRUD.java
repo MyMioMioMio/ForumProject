@@ -1,5 +1,6 @@
 package com.myli;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.myli.dao.PostsDao;
 import com.myli.dao.ReplyDao;
 import com.myli.dao.SectionDao;
@@ -45,10 +46,12 @@ public class TestBaseCRUD {
 
     @Test
     void testBasePostsDao() {
-        List<Posts> posts = postsDao.selectList(null);
-        List<PostsUserVo> postsUserVos = postsDao.selectListVo();
+        LambdaQueryWrapper<Posts> queryWrapper = new LambdaQueryWrapper<>();
+//        queryWrapper.like(Posts::getPostsTitle, "aaa");
+        List<Posts> posts = postsDao.selectList(queryWrapper);
+        //List<PostsUserVo> postsUserVos = postsDao.selectListVo();
         System.out.println(posts);
-        System.out.println(postsUserVos);
+        //System.out.println(postsUserVos);
         System.out.println("****************************************************************");
     }
 }
