@@ -15,6 +15,13 @@ public interface SectionService {
      * @param pageSize 页内条数
      * @return
      */
-    IPage<PostSectionVo> selectAllVo(Integer current, Integer pageSize, String sectionName);
+    IPage<PostSectionVo> selectAllVo(Integer current, Integer pageSize);
 
+
+    /**
+     * 根据sid查询贴吧
+     * @param sid
+     * @return
+     */
+    Section selectById(Long sid);
 }

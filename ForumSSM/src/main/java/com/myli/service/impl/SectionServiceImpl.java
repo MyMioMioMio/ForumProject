@@ -3,6 +3,7 @@ package com.myli.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.myli.controller.Code;
 import com.myli.dao.SectionDao;
 import com.myli.domain.PostSectionVo;
 import com.myli.domain.Section;
@@ -19,16 +20,15 @@ public class SectionServiceImpl implements SectionService {
     @Autowired
     private SectionDao sectionDao;
     @Override
-    public IPage<PostSectionVo> selectAllVo(Integer current, Integer pageSize, String sectionName) {
+    public IPage<PostSectionVo> selectAllVo(Integer current, Integer pageSize) {
         IPage<PostSectionVo> page = new Page<>(current, pageSize);
-        //判断有无查询条件
-        if (sectionName != null && !sectionName.isEmpty() && !sectionName.equals("nodata")) {
-            sectionName = "%" + sectionName + "%";
-        } else {
-            sectionName = "%%";
-        }
-        List<PostSectionVo> postSectionVos = sectionDao.selectAllVo(page, sectionName);
+        List<PostSectionVo> postSectionVos = sectionDao.selectAllVo(page);
         page.setRecords(postSectionVos);
         return page;
+    }
+
+    @Override
+    public Section selectById(Long sid) {
+        return sectionDao.selectById(sid);
     }
 }

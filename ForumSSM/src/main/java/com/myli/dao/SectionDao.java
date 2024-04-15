@@ -15,8 +15,7 @@ public interface SectionDao extends BaseMapper<Section> {
     /**
      * 分页查询所有贴吧的帖子
      * @param page
-     * @param sectionName
      * @return
      */
-    List<PostSectionVo> selectAllVo(IPage<PostSectionVo> page, @Param("sectionName") String sectionName);
+    List<PostSectionVo> selectAllVo(IPage<PostSectionVo> page);
 }

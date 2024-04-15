@@ -18,5 +18,5 @@ public class Posts {
     private String postsDescription;
     private Long sid;
     @TableField(value = "posts_dateTime")
-    private Timestamp postDateTime;
+    private Timestamp postsDateTime;
 }

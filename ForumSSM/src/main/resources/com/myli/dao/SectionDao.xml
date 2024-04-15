@@ -15,8 +15,7 @@
         from posts,
              section
         <where>
-            posts.sid = section.sid and
-            section_name like #{sectionName}
+            posts.sid = section.sid
         </where>
         order by posts_dateTime desc
     </select>
