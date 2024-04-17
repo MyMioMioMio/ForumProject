@@ -20,4 +20,5 @@ public class PostsUserVo {
     private String postsDescription;
     @TableField(value = "posts_dateTime")
     private Timestamp postsDateTime;
+    private Long sid;
 }

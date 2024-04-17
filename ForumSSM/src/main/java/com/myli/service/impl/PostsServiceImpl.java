@@ -21,4 +21,9 @@ public class PostsServiceImpl implements PostsService{
         page.setRecords(postsUserVos);
         return page;
     }
+
+    @Override
+    public PostsUserVo selectByPidPostsUserVo(Long pid) {
+        return postsDao.selectByPidPostsUserVo(pid);
+    }
 }

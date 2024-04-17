@@ -11,9 +11,24 @@
             user_photo,
             posts_title,
             posts_description,
-            posts_dateTime
+            posts_dateTime,
+            sid
         from posts, user
         where posts.uid = user.uid and sid = #{sid}
         order by posts_dateTime desc
+    </select>
+
+    <select id="selectByPidPostsUserVo" resultType="com.myli.domain.PostsUserVo">
+        select
+            pid,
+            posts.uid,
+            username,
+            user_photo,
+            posts_title,
+            posts_description,
+            posts_dateTime,
+            sid
+        from posts, user
+        where posts.uid = user.uid and pid = #{pid}
     </select>
 </mapper>

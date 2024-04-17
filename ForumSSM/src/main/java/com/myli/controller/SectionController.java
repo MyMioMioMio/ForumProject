@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 主要负责与贴吧相关
+ */
 @RestController
 @RequestMapping("/sections")
 public class SectionController {
@@ -52,7 +55,7 @@ public class SectionController {
         HttpSession session = request.getSession();
         session.setAttribute("sid", sid);
         //转到section页面
-        return new Result(Code.SAVE_SUCCESS, "/section");
+        return new Result(Code.SAVE_SUCCESS, "");
     }
 
     /**

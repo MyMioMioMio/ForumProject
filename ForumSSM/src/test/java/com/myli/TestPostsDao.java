@@ -25,4 +25,10 @@ public class TestPostsDao {
         System.out.println("一共多少页==>" + page.getPages());
         System.out.println("一共多少条数据==>" + page.getTotal());
     }
+
+    @Test
+    public void testSelectByPid() {
+        PostsUserVo postsUserVo = postsDao.selectByPidPostsUserVo(1012L);
+        System.out.println(postsUserVo);
+    }
 }

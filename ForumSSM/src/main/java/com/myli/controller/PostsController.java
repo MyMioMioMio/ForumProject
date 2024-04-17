@@ -15,6 +15,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 主要负责与贴子相关
+ */
 @RestController
 @RequestMapping("/posts")
 public class PostsController {
@@ -44,16 +47,33 @@ public class PostsController {
 
     /**
      * 保存所点击的帖子的pid
-     * 跳转section页面
+     * 跳转post页面
      * @param pid
      * @return
      */
-    @GetMapping("/{pid}")
-    public Result ToPost(@PathVariable("pid") Long pid, HttpServletRequest request) {
+    @GetMapping("/{pid}/{sid}")
+    public Result ToPost(@PathVariable("pid") Long pid, @PathVariable("sid") Long sid,HttpServletRequest request) {
         //保存pid到session域
         HttpSession session = request.getSession();
         session.setAttribute("pid", pid);
+        session.setAttribute("sid", sid);
         //转到post页面
-        return new Result(Code.SAVE_SUCCESS, "/section");
+        return new Result(Code.SAVE_SUCCESS, "");
+    }
+
+    /**
+     * 根据pid查询帖子
+     * @param request
+     * @return
+     */
+    @GetMapping
+    public Result GetPostByPid(HttpServletRequest request) {
+        //从session域中获取pid
+        HttpSession session = request.getSession();
+        Long pid = (Long) session.getAttribute("pid");
+        PostsUserVo postsUserVo = postsService.selectByPidPostsUserVo(pid);
+        Integer code = postsUserVo != null ? Code.GET_SUCCESS : Code.GET_ERR;
+        String msg = postsUserVo != null ? "" : "获取繁忙，请重试！";
+        return new Result(code, postsUserVo, msg);
     }
 }

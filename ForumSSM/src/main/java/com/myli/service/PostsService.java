@@ -15,4 +15,11 @@ public interface PostsService {
      * @return
      */
     IPage<PostsUserVo> selectListVo(Integer current, Integer pageSize, Long sid);
+
+    /**
+     * 根据pid查询贴子
+     * @param pid
+     * @return
+     */
+    PostsUserVo selectByPidPostsUserVo(Long pid);
 }

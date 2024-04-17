@@ -6,6 +6,7 @@ import com.myli.domain.Posts;
 import com.myli.domain.PostsUserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -19,4 +20,11 @@ public interface PostsDao extends BaseMapper<Posts> {
      * @return
      */
     List<PostsUserVo> selectListVo(IPage<PostsUserVo> page, @Param("sid") Long sid);
+
+    /**
+     * 根据pid查询贴子内容
+     * @param pid
+     * @return
+     */
+    PostsUserVo selectByPidPostsUserVo(@Param("pid") Long pid);
 }
