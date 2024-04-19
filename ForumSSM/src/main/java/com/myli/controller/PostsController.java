@@ -52,7 +52,7 @@ public class PostsController {
      * @return
      */
     @GetMapping("/{pid}/{sid}")
-    public Result ToPost(@PathVariable("pid") Long pid, @PathVariable("sid") Long sid,HttpServletRequest request) {
+    public Result toPost(@PathVariable("pid") Long pid, @PathVariable("sid") Long sid,HttpServletRequest request) {
         //保存pid到session域
         HttpSession session = request.getSession();
         session.setAttribute("pid", pid);
@@ -67,7 +67,7 @@ public class PostsController {
      * @return
      */
     @GetMapping
-    public Result GetPostByPid(HttpServletRequest request) {
+    public Result getPostByPid(HttpServletRequest request) {
         //从session域中获取pid
         HttpSession session = request.getSession();
         Long pid = (Long) session.getAttribute("pid");

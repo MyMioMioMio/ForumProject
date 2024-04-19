@@ -26,7 +26,10 @@ public class TestBaseCRUD {
     @Test
     void testBaseUserDao() {
         List<User> users = userDao.selectList(null);
-        System.out.println(users);
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(User::getUsername, "沦为阶下囚QAQ").eq(User::getPassword, "ljh3927322");
+        User user = userDao.selectOne(queryWrapper);
+        System.out.println(user);
         System.out.println("****************************************************************");
     }
 

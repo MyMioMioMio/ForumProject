@@ -50,7 +50,7 @@ public class SectionController {
      * @return
      */
     @GetMapping("/{sid}")
-    public Result ToSection(@PathVariable("sid") Long sid, HttpServletRequest request) {
+    public Result toSection(@PathVariable("sid") Long sid, HttpServletRequest request) {
         //保存sid到session域
         HttpSession session = request.getSession();
         session.setAttribute("sid", sid);
