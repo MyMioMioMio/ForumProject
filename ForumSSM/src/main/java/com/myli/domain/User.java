@@ -13,6 +13,7 @@ public class User {
     @TableId(type = IdType.AUTO)
     private Long uid;
     private String username;
+    @TableField(select = false)
     private String password;
     private String gender;
     @TableField(value = "user_signature")

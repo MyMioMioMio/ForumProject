@@ -19,4 +19,17 @@ public class UserServiceImpl implements UserService {
         queryWrapper.eq(User::getUsername, username).eq(User::getPassword, password);
         return userDao.selectOne(queryWrapper);
     }
+
+    @Override
+    public Boolean selectByUsername(String username) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        //判断条件
+        queryWrapper.eq(User::getUsername, username);
+        return userDao.selectCount(queryWrapper) > 0;
+    }
+
+    @Override
+    public Integer insertUser(User user) {
+        return userDao.insert(user);
+    }
 }

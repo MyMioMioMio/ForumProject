@@ -13,4 +13,17 @@ public interface UserService {
      */
     User selectByUsernameAndPassword(String username, String password);
 
+    /**
+     * 根据用户名查询用户
+     * @param username
+     * @return
+     */
+    Boolean selectByUsername(String username);
+
+    /**
+     * 新建用户
+     * @param user
+     * @return
+     */
+    public Integer insertUser(User user);
 }
