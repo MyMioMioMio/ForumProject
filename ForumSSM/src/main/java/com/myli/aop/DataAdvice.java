@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 public class DataAdvice {
     // 定义切点
-    @Pointcut("execution(* com.myli.service.*Service.*(..))")
+    @Pointcut("execution(* com.myli.service.UserService.*(..))")
     public void servicePt() {}
 
     // 定义切面

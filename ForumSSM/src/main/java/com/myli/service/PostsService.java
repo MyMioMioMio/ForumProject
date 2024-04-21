@@ -1,6 +1,7 @@
 package com.myli.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.myli.domain.Posts;
 import com.myli.domain.PostsUserVo;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,4 +23,11 @@ public interface PostsService {
      * @return
      */
     PostsUserVo selectByPidPostsUserVo(Long pid);
+
+    /**
+     * 新增帖子
+     * @param posts
+     * @return
+     */
+    Integer insertPost(Posts posts);
 }

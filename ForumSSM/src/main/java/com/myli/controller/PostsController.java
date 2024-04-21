@@ -1,15 +1,14 @@
 package com.myli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.myli.domain.Posts;
 import com.myli.domain.PostsUserVo;
 import com.myli.service.PostsService;
+import com.myli.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -75,5 +74,28 @@ public class PostsController {
         Integer code = postsUserVo != null ? Code.GET_SUCCESS : Code.GET_ERR;
         String msg = postsUserVo != null ? "" : "获取繁忙，请重试！";
         return new Result(code, postsUserVo, msg);
+    }
+
+    /**
+     * 新增帖子
+     * @param posts
+     * @return
+     */
+    @PostMapping
+    public Result addPost(@RequestBody Posts posts, HttpServletRequest request) {
+        //登录检测
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录不能新增贴子
+            return new Result(Code.SAVE_ERR, null, "请先登录！");
+        }
+        Integer i = postsService.insertPost(posts);
+        //防止i为null
+        if (i == null) {
+            i = 0;
+        }
+        Integer code = i > 0 ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
+        String msg = i > 0 ? "发帖成功!" : "网络繁忙，请稍后试!";
+        return new Result(code, null, msg);
     }
 }
