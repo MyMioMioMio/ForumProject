@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+//开启事务
 @Transactional
 public interface SectionService {
     /**

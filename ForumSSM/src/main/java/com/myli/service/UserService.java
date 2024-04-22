@@ -2,7 +2,7 @@ package com.myli.service;
 
 import com.myli.domain.User;
 import org.springframework.transaction.annotation.Transactional;
-
+//开启事务
 @Transactional
 public interface UserService {
     /**

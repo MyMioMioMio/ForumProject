@@ -87,7 +87,7 @@ public class PostsController {
         Object user = request.getSession().getAttribute("user");
         if (user == null) {
             //未登录不能新增贴子
-            return new Result(Code.SAVE_ERR, null, "请先登录！");
+            return new Result(Code.LOGIN_ERR, null, "请先登录！");
         }
         Integer i = postsService.insertPost(posts);
         //防止i为null

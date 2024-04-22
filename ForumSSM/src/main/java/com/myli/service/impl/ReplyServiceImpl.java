@@ -3,6 +3,7 @@ package com.myli.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.myli.dao.ReplyDao;
+import com.myli.domain.Reply;
 import com.myli.domain.ReplyUserVo;
 import com.myli.service.ReplyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class ReplyServiceImpl implements ReplyService {
         List<ReplyUserVo> replyUserVos = replyDao.selectToReplyByRidAndPid(page, pid, rid);
         page.setRecords(replyUserVos);
         return page;
+    }
+
+    @Override
+    public Integer insertReply(Reply reply) {
+        return replyDao.insert(reply);
     }
 }

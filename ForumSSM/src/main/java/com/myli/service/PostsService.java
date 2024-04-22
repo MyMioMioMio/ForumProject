@@ -5,6 +5,7 @@ import com.myli.domain.Posts;
 import com.myli.domain.PostsUserVo;
 import org.springframework.transaction.annotation.Transactional;
 
+//开启事务
 @Transactional
 public interface PostsService {
 

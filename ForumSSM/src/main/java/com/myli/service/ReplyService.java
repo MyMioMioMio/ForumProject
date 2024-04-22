@@ -1,8 +1,12 @@
 package com.myli.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.myli.domain.Reply;
 import com.myli.domain.ReplyUserVo;
+import org.springframework.transaction.annotation.Transactional;
 
+//开启事务
+@Transactional
 public interface ReplyService {
 
     /**
@@ -21,4 +25,11 @@ public interface ReplyService {
      * @return
      */
     IPage<ReplyUserVo> selectToReplyByRidAndPid(Integer current, Integer pageSize, Long pid, Long rid);
+
+    /**
+     * 新增回复
+     * @param reply
+     * @return
+     */
+    Integer insertReply(Reply reply);
 }

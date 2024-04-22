@@ -20,5 +20,10 @@ mybatis-plus:
 
 
 # --------------------------用户自定义项--------------------------------------
-File:
-  FileResource: E:\forumresp
+# 本地文件存储地址
+FileRepository: E:/forum_project_save_dir
+
+# 跨域访问放行的源
+cors:
+ origins:
+  - http://10.62.192.125:8080
