@@ -22,6 +22,7 @@ public class User {
     private String userPhoto;
     @TableField(value = "user_datetime")
     private Timestamp userDatetime;
+    //记住我的标志
     @TableField(exist = false)
     private Boolean remember;
 }

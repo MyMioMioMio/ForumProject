@@ -23,4 +23,7 @@ public class ReplyUserVo{
     private String username;
     @TableField(value = "user_photo")
     private String userPhoto;
+    //展示回复的回复的标志
+    @TableField(exist = false)
+    private Boolean toReplyVisible = false;
 }

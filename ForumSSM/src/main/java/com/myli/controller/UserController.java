@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import org.springframework.http.HttpHeaders;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/users")
@@ -23,10 +22,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //获取指定存储位置
-    @Value("${FileRepository}")
-    private String fileRepository;
-    
     /**
      * 登录
      * @param user
@@ -113,80 +108,38 @@ public class UserController {
         return new Result(Code.QUIT_SUCCESS, null, "退出登录成功!");
     }
 
+
     /**
-     * 上传demo
-     * 之后要封装进service中的
+     * 上传用户头像
      * @param multipartFile
      * @param uid
      * @return
      */
-    @PostMapping("/upload")
-    public Result upLoadDemo(@RequestParam("file") MultipartFile multipartFile, @RequestParam("uid") Long uid) {
-        //获取原始文件名
-        String originalFilename = multipartFile.getOriginalFilename();
-        //获取文件后缀名
-        String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
-        //生成新的文件名
-        String newName = uid + "-photo" + suffix;
-        //文件父路径
-        String parentPath = fileRepository + "/" + "user" + "/" + uid;
-        File parentFile = new File(parentPath);
-        //判断目录是否存在
-        if (!parentFile.exists()) {
-            //不存在，则创建多级目录
-            parentFile.mkdirs();
+    @PostMapping("/uploadavatar")
+    public Result uploadAvatar(@RequestParam("file") MultipartFile multipartFile,
+                               @RequestParam("uid") Long uid,
+                               HttpServletRequest request) {
+        //登录身份验证
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            return new Result(Code.LOGIN_ERR, null, "请先登录!");
         }
-        File file = new File(parentFile, newName);
         //保存文件到本地
-        try {
-            multipartFile.transferTo(file);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new Result(Code.SAVE_ERR, null, "网路错误，请重试!");
-        }
-        return new Result(Code.SAVE_SUCCESS, null, "保存成功!");
+        boolean flag = userService.upload(multipartFile, uid, Code.USER_AVATAR);
+        Integer code = flag ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
+        String msg = flag ? "上传成功" : "网络繁忙，请稍后再试!";
+        return new Result(code, null, msg);
     }
 
     /**
-     * 下载demo
+     * 下载用户头像
      * @param uid
+     * @return
      */
     @GetMapping("/download/{uid}")
-    public ResponseEntity<Object> downloadDemo(@PathVariable("uid") Long uid) {
-        //文件父路径
-        String parentPath = fileRepository + "/" + "user" + "/" + uid;
-        File parentFile = new File(parentPath);
-        //判断目录是否存在
-        if (!parentFile.exists()) {
-            //不存在则结束
-            return null;
-        }
-        //获取目标目录下的所有文件
-        File[] files = parentFile.listFiles();
-        File targetFile = null;
-        //遍历文件
-        for (File file : files) {
-            if (file.getName().contains("photo")) {
-                //获取目标文件
-                targetFile = file;
-            }
-        }
-        InputStreamResource resource = null;
-        try {
-            resource = new InputStreamResource(new FileInputStream(targetFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", String.format("attachment;filename=\"%s", targetFile.getName()));
-        headers.add("Cache-Control", "no-cache,no-store,must-revalidate");
-        headers.add("Pragma", "no-cache");
-        headers.add("Expires", "0");
-        ResponseEntity<Object> responseEntity = ResponseEntity.ok()
-                .headers(headers)
-                .contentLength(targetFile.length())
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
-                .body(resource);
-        return responseEntity;
+    public ResponseEntity<Object> downloadAvatar(@PathVariable("uid") Long uid) {
+        //获得下载对象
+        ResponseEntity<Object> download = userService.download(uid, Code.USER_AVATAR);
+        return download;
     }
 }
