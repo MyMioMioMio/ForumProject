@@ -18,4 +18,5 @@ public interface SectionDao extends BaseMapper<Section> {
      * @return
      */
     List<PostSectionVo> selectAllVo(IPage<PostSectionVo> page);
+
 }

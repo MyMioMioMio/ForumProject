@@ -18,8 +18,6 @@ public class User {
     private String gender;
     @TableField(value = "user_signature")
     private String userSignature;
-    @TableField(value = "user_photo")
-    private String userPhoto;
     @TableField(value = "user_datetime")
     private Timestamp userDatetime;
     //记住我的标志

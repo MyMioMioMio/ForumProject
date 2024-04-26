@@ -26,6 +26,7 @@ public class SectionController {
     /**
      * 处理index页面内容
      * 获取吧+帖子
+     *
      * @param current
      * @param pageSize
      * @return
@@ -46,6 +47,7 @@ public class SectionController {
     /**
      * 保存所点击的贴吧sid
      * 跳转section页面
+     *
      * @param sid
      * @return
      */
@@ -60,6 +62,7 @@ public class SectionController {
 
     /**
      * 查询贴吧信息
+     *
      * @param request
      * @return
      */
@@ -72,5 +75,58 @@ public class SectionController {
         Integer code = section != null ? Code.GET_SUCCESS : Code.GET_ERR;
         String msg = section != null ? "" : "贴吧不存在！";
         return new Result(code, section, msg);
+    }
+
+    /**
+     * 分页查询所有贴吧
+     * @param current
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/all/{current}/{pageSize}")
+    public Result getAllSections(@PathVariable("current") Integer current,
+                                 @PathVariable("pageSize") Integer pageSize) {
+        IPage<Section> page = sectionService.selectAllSection(current, pageSize);
+        List<Section> pageData = page.getRecords();
+        Integer code = pageData != null ? Code.GET_SUCCESS : Code.GET_ERR;
+        String msg = pageData != null ? "" : "加载失败，请重试！";
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pageData", pageData);
+        map.put("totalPage", page.getTotal());
+        return new Result(code, map, msg);
+    }
+
+    /**
+     * 新添贴吧
+     * @param section
+     * @param request
+     * @return
+     */
+    @PostMapping
+    public Result AddSection(@RequestBody Section section, HttpServletRequest request) {
+        //登录检测
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录不能新增贴子
+            return new Result(Code.LOGIN_ERR, null, "请先登录！");
+        }
+        Integer i = sectionService.insertSection(section);
+        Integer code = i != null && i > 0 ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
+        String msg = i != null && i > 0 ? "新建成功!" : "网络繁忙，请稍后试!";
+        return new Result(code, null, msg);
+    }
+
+    @PutMapping
+    public Result updateSection(@RequestBody Section section, HttpServletRequest request) {
+        //登录检测
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录不能新增贴子
+            return new Result(Code.LOGIN_ERR, null, "请先登录！");
+        }
+        Integer i = sectionService.updateSection(section);
+        Integer code = i != null && i > 0 ? Code.UPDATE_SUCCESS : Code.UPDATE_ERR;
+        String msg = i != null && i > 0 ? "更改成功!" : "网络繁忙，请稍后试!";
+        return new Result(code, null, msg);
     }
 }

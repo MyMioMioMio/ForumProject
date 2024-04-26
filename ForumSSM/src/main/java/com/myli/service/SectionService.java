@@ -25,4 +25,26 @@ public interface SectionService {
      * @return
      */
     Section selectById(Long sid);
+
+    /**
+     * 分页查询所有贴吧
+     * @param current
+     * @param pageSize
+     * @return
+     */
+    IPage<Section> selectAllSection(Integer current, Integer pageSize);
+
+    /**
+     * 新添贴吧
+     * @param section
+     * @return
+     */
+    Integer insertSection(Section section);
+
+    /**
+     * 更新贴吧
+     * @param section
+     * @return
+     */
+    Integer updateSection(Section section);
 }

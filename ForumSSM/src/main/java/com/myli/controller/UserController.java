@@ -45,8 +45,8 @@ public class UserController {
             request.getSession().setAttribute("user", selectUser);
             if (user.getRemember()) {
                 //添加到cookie
-                Cookie cookie1 = new Cookie("TieUsername", selectUser.getUsername());
-                Cookie cookie2 = new Cookie("TiePassword", selectUser.getPassword());
+                Cookie cookie1 = new Cookie("TieUsername", user.getUsername());
+                Cookie cookie2 = new Cookie("TiePassword", user.getPassword());
                 //设置cookie时间
                 cookie1.setMaxAge(5 * 24 * 60 * 60);
                 cookie2.setMaxAge(5 * 24 * 60 * 60);

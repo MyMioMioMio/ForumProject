@@ -12,8 +12,6 @@ public class PostsUserVo {
     private Long pid;
     private Long uid;
     private String username;
-    @TableField(value = "user_photo")
-    private String userPhoto;
     @TableField(value = "posts_title")
     private String postsTitle;
     @TableField(value = "posts_description")

@@ -18,7 +18,7 @@ public interface ReplyDao extends BaseMapper<Reply> {
      * @param pid
      * @return
      */
-    @Select("select reply.*, username, user_photo from reply, user where reply.pid=#{pid} and reply.uid = user.uid and to_rid = 0 order by reply_datetime desc")
+    @Select("select reply.*, username from reply, user where reply.pid=#{pid} and reply.uid = user.uid and to_rid = 0 order by reply_datetime desc")
     List<ReplyUserVo> selectReplyByPid(IPage<ReplyUserVo> page, @Param("pid") Long pid);
 
     /**
@@ -28,6 +28,6 @@ public interface ReplyDao extends BaseMapper<Reply> {
      * @param rid
      * @return
      */
-    @Select("select reply.*, username, user_photo from reply, user where reply.pid=#{pid} and reply.uid = user.uid and to_rid = #{rid} order by reply_datetime desc")
+    @Select("select reply.*, username from reply, user where reply.pid=#{pid} and reply.uid = user.uid and to_rid = #{rid} order by reply_datetime desc")
     List<ReplyUserVo> selectToReplyByRidAndPid(IPage<ReplyUserVo> page, @Param("pid") Long pid, @Param("rid") Long rid);
 }

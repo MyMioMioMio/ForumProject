@@ -14,12 +14,15 @@ public class Code {
     public static Integer LOGIN_SUCCESS = 40001;
     public static Integer REGISTER_SUCCESS = 50001;
     public static Integer QUIT_SUCCESS = 60001;
+    public static Integer UPDATE_SUCCESS = 70001;
 
     public static Integer GET_ERR = 20000;
     public static Integer SAVE_ERR = 30000;
     public static Integer LOGIN_ERR = 40000;
     public static Integer REGISTER_ERR = 50000;
     public static Integer QUIT_ERR = 60000;
+    public static Integer UPDATE_ERR = 70000;
+
 
     /**
      * 上传文件模式码

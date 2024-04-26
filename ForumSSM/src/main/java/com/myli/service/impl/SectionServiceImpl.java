@@ -31,4 +31,23 @@ public class SectionServiceImpl implements SectionService {
     public Section selectById(Long sid) {
         return sectionDao.selectById(sid);
     }
+
+    @Override
+    public IPage<Section> selectAllSection(Integer current, Integer pageSize) {
+        IPage<Section> page = new Page<>(current, pageSize);
+        LambdaQueryWrapper<Section> query = new LambdaQueryWrapper<>();
+        query.orderByDesc(Section::getSectionDatetime);
+        sectionDao.selectPage(page, query);
+        return page;
+    }
+
+    @Override
+    public Integer insertSection(Section section) {
+        return sectionDao.insert(section);
+    }
+
+    @Override
+    public Integer updateSection(Section section) {
+        return sectionDao.updateById(section);
+    }
 }

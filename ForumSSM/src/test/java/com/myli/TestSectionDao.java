@@ -35,4 +35,17 @@ public class TestSectionDao {
         Section section = sectionDao.selectById(200002);
         System.out.println(section);
     }
+
+    @Test
+    public void testSelectAll() {
+        IPage<Section> page = new Page<>(1, 5);
+        LambdaQueryWrapper<Section> query = new LambdaQueryWrapper<>();
+        query.orderByDesc(Section::getSectionDatetime);
+        sectionDao.selectPage(page, query);
+        System.out.println("数据==>" + page.getRecords());
+        System.out.println("当前页码==>" + page.getCurrent());
+        System.out.println("每页显示条数==>" + page.getSize());
+        System.out.println("一共多少页==>" + page.getPages());
+        System.out.println("一共多少条数据==>" + page.getTotal());
+    }
 }
