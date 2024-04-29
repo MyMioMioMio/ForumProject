@@ -28,4 +28,5 @@ public class Code {
      * 上传文件模式码
      */
     public static Integer USER_AVATAR = 90001;
+    public static Integer SECTION_AVATAR = 100001;
 }

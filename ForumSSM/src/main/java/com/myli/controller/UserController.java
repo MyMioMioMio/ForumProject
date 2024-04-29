@@ -142,4 +142,32 @@ public class UserController {
         ResponseEntity<Object> download = userService.download(uid, Code.USER_AVATAR);
         return download;
     }
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @param request
+     * @return
+     */
+    @PutMapping
+    public Result updateUser(@RequestBody User user, HttpServletRequest request) {
+        Integer code = null;
+        String msg = null;
+        //登录身份验证
+        Object orinUser = request.getSession().getAttribute("user");
+        if (orinUser == null) {
+            return new Result(Code.LOGIN_ERR, null, "请先登录!");
+        }
+        Integer i = userService.updateUser(user);
+        if (i != null && i > 0) {
+            //更改成功
+            code = Code.UPDATE_SUCCESS;
+            msg = "更新成功!";
+        } else {
+            //更改失败
+            code = Code.UPDATE_ERR;
+            msg = "网络繁忙，请稍后再试!";
+        }
+        return new Result(code, null, msg);
+    }
 }

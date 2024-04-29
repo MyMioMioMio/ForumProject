@@ -4,11 +4,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.myli.domain.PostSectionVo;
 import com.myli.domain.Section;
 import com.myli.service.SectionService;
+import com.myli.service.UserService;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +25,9 @@ import java.util.Map;
 public class SectionController {
     @Autowired
     private SectionService sectionService;
+
+    @Autowired
+    private UserService userService;
 
     /**
      * 处理index页面内容
@@ -116,6 +122,12 @@ public class SectionController {
         return new Result(code, null, msg);
     }
 
+    /**
+     * 更新贴吧信息
+     * @param section
+     * @param request
+     * @return
+     */
     @PutMapping
     public Result updateSection(@RequestBody Section section, HttpServletRequest request) {
         //登录检测
@@ -128,5 +140,40 @@ public class SectionController {
         Integer code = i != null && i > 0 ? Code.UPDATE_SUCCESS : Code.UPDATE_ERR;
         String msg = i != null && i > 0 ? "更改成功!" : "网络繁忙，请稍后试!";
         return new Result(code, null, msg);
+    }
+
+    /**
+     * 上传贴吧头像
+     * @param multipartFile
+     * @param sid
+     * @param request
+     * @return
+     */
+    @PostMapping("/uploadavatar")
+    public Result uploadAvatar(@RequestParam("file") MultipartFile multipartFile,
+                               @RequestParam("sid") Long sid,
+                               HttpServletRequest request) {
+        //登录身份验证
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            return new Result(Code.LOGIN_ERR, null, "请先登录!");
+        }
+        //保存到本地
+        boolean flag = userService.upload(multipartFile, sid, Code.SECTION_AVATAR);
+        Integer code = flag ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
+        String msg = flag ? "上传成功" : "网络繁忙，请稍后再试!";
+        return new Result(code, null, msg);
+    }
+
+    /**
+     * 下载贴吧头像
+     * @param sid
+     * @return
+     */
+    @GetMapping("/download/{sid}")
+    public ResponseEntity<Object> downloadAvatar(@PathVariable("sid") Long sid) {
+        //获得下载对象
+        ResponseEntity<Object> download = userService.download(sid, Code.SECTION_AVATAR);
+        return download;
     }
 }

@@ -46,4 +46,11 @@ public interface UserService {
      * @return
      */
     public ResponseEntity<Object> download(Long id, Integer pattern);
+
+    /**
+     * 更新用户信息
+     * @param user
+     * @return
+     */
+    public Integer updateUser(User user);
 }

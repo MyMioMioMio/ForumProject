@@ -60,6 +60,9 @@ public class UserServiceImpl implements UserService {
         if (pattern.intValue() == Code.USER_AVATAR) {
             parentPath = fileRepository + "/user/" + id;
             fileType = "photo";
+        } else if (pattern.intValue() == Code.SECTION_AVATAR) {
+            parentPath = fileRepository + "/section/" + id;
+            fileType = "photo";
         }
         //获取原始文件名
         String originalFilename = multipartFile.getOriginalFilename();
@@ -102,6 +105,9 @@ public class UserServiceImpl implements UserService {
         //确认模式
         if (pattern.intValue() == Code.USER_AVATAR) {
             parentPath = fileRepository + "/" + "user" + "/" + id;
+            fileType = "photo";
+        } else if (pattern.intValue() == Code.SECTION_AVATAR) {
+            parentPath = fileRepository + "/section/" + id;
             fileType = "photo";
         }
         File parentFile = new File(parentPath);
@@ -146,5 +152,10 @@ public class UserServiceImpl implements UserService {
                 .contentType(MediaType.parseMediaType("application/octet-stream"))
                 .body(resource);
         return responseEntity;
+    }
+
+    @Override
+    public Integer updateUser(User user) {
+        return userDao.updateById(user);
     }
 }
