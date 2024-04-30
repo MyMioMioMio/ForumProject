@@ -28,4 +28,9 @@ public class TestReplyDao {
         List<ReplyUserVo> replyUserVos = replyDao.selectToReplyByRidAndPid(page, 1005L, 1L);
         System.out.println(replyUserVos);
     }
+
+    @Test
+    public void testUpdateLikes() {
+        replyDao.updateLikes(5L);
+    }
 }

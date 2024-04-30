@@ -11,7 +11,8 @@
             posts_title,
             posts_description,
             posts_dateTime,
-            sid
+            sid,
+            likes
         from posts, user
         where posts.uid = user.uid and sid = #{sid}
         order by posts_dateTime desc
@@ -25,7 +26,8 @@
             posts_title,
             posts_description,
             posts_dateTime,
-            sid
+            sid,
+            likes
         from posts, user
         where posts.uid = user.uid and pid = #{pid}
     </select>

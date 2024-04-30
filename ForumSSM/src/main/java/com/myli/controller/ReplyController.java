@@ -2,6 +2,7 @@ package com.myli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.myli.domain.Reply;
+import com.myli.domain.ReplyLikes;
 import com.myli.domain.ReplyUserVo;
 import com.myli.service.ReplyService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -80,6 +81,27 @@ public class ReplyController {
         Integer i = replyService.insertReply(reply);
         Integer code = i > 0 ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
         String msg = i > 0 ? "回复成功!" : "网络繁忙，请稍后试!";
+        return new Result(code, null, msg);
+    }
+
+    @PostMapping("/like")
+    Result addLike(@RequestBody ReplyLikes replyLikes, HttpServletRequest request) {
+        //登录检测
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录不能新增贴子
+            return new Result(Code.LOGIN_ERR, null, "请先登录！");
+        }
+        //查询是否点赞过
+        Boolean b = replyService.selectUserLike(replyLikes);
+        if (b) {
+            //已经点过赞
+            return new Result(Code.LIKES_ERR, null, "已经点过赞了!");
+        }
+        //添加点赞
+        Integer i = replyService.insertReplyLikes(replyLikes);
+        Integer code = i != null && i > 0 ? Code.LIKES_SUCCESS : Code.LIKES_ERR;
+        String msg = i != null && i > 0 ? "点赞成功!" : "网络繁忙，请稍后试!";
         return new Result(code, null, msg);
     }
 }

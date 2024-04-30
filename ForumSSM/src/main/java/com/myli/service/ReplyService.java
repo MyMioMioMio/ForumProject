@@ -2,6 +2,7 @@ package com.myli.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.myli.domain.Reply;
+import com.myli.domain.ReplyLikes;
 import com.myli.domain.ReplyUserVo;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,4 +33,25 @@ public interface ReplyService {
      * @return
      */
     Integer insertReply(Reply reply);
+
+    /**
+     * 查询回复点赞数
+     * @param rid
+     * @return
+     */
+    public Long selectReplyLikesCount(Long rid);
+
+    /**
+     * 新增回复点赞并保证一致性
+     * @param replyLikes
+     * @return
+     */
+    public Integer insertReplyLikes(ReplyLikes replyLikes);
+
+    /**
+     * 查询用户是否已经点过赞
+     * @param replyLikes
+     * @return
+     */
+    public Boolean selectUserLike(ReplyLikes replyLikes);
 }

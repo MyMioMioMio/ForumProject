@@ -19,4 +19,5 @@ public class Reply {
     private Long toRid;
     @TableField(value = "reply_datetime")
     private Timestamp replyDateTime;
+    private Long likes;
 }

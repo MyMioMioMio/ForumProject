@@ -19,4 +19,5 @@ public class PostSectionVo {
     private String sectionPhoto;
     @TableField(value = "posts_dateTime")
     private Timestamp postsDateTime;
+    private Long likes;
 }

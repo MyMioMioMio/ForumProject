@@ -1,10 +1,7 @@
 package com.myli;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.myli.dao.PostsDao;
-import com.myli.dao.ReplyDao;
-import com.myli.dao.SectionDao;
-import com.myli.dao.UserDao;
+import com.myli.dao.*;
 import com.myli.domain.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +19,8 @@ public class TestBaseCRUD {
     private ReplyDao replyDao;
     @Autowired
     private PostsDao postsDao;
+    @Autowired
+    private ReplyLikesDao replyLikesDao;
 
     @Test
     void testBaseUserDao() {
@@ -56,5 +55,11 @@ public class TestBaseCRUD {
         System.out.println(posts);
         //System.out.println(postsUserVos);
         System.out.println("****************************************************************");
+    }
+
+    @Test
+    void testBaseReplyLikesDao() {
+        List<ReplyLikes> replyLikes = replyLikesDao.selectList(null);
+        System.out.println(replyLikes);
     }
 }

@@ -19,4 +19,5 @@ public class PostsUserVo {
     @TableField(value = "posts_dateTime")
     private Timestamp postsDateTime;
     private Long sid;
+    private Long likes;
 }

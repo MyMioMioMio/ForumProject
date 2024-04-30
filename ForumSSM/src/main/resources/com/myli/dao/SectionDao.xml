@@ -11,7 +11,8 @@
             posts.sid,
             section_name,
             section_photo,
-            posts_dateTime
+            posts_dateTime,
+            likes
         from posts,
              section
         <where>

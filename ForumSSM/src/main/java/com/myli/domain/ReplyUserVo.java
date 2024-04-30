@@ -24,4 +24,5 @@ public class ReplyUserVo{
     //展示回复的回复的标志
     @TableField(exist = false)
     private Boolean toReplyVisible = false;
+    private Long likes;
 }
