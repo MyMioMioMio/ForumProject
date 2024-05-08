@@ -6,4 +6,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 @Mapper
 public interface PostsLikesDao extends BaseMapper<PostsLikes>{
+
 }

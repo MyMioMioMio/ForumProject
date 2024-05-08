@@ -7,6 +7,7 @@ import com.myli.domain.PostsUserVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -27,4 +28,12 @@ public interface PostsDao extends BaseMapper<Posts> {
      * @return
      */
     PostsUserVo selectByPidPostsUserVo(@Param("pid") Long pid);
+
+    /**
+     * 根据pid更新贴子点赞数
+     * @param pid
+     * @return
+     */
+    @Update("update posts set likes = likes + 1 where pid = #{pid}")
+    Integer updateLikes(@Param("pid") Long pid);
 }

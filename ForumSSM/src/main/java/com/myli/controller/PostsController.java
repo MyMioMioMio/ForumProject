@@ -2,6 +2,7 @@ package com.myli.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.myli.domain.Posts;
+import com.myli.domain.PostsLikes;
 import com.myli.domain.PostsUserVo;
 import com.myli.service.PostsService;
 import com.myli.service.UserService;
@@ -96,6 +97,33 @@ public class PostsController {
         }
         Integer code = i > 0 ? Code.SAVE_SUCCESS : Code.SAVE_ERR;
         String msg = i > 0 ? "发帖成功!" : "网络繁忙，请稍后试!";
+        return new Result(code, null, msg);
+    }
+
+    /**
+     * 贴子点赞
+     * @param postsLikes
+     * @param request
+     * @return
+     */
+    @PostMapping("/like")
+    public Result addLike(@RequestBody PostsLikes postsLikes, HttpServletRequest request) {
+        //登录检测
+        Object user = request.getSession().getAttribute("user");
+        if (user == null) {
+            //未登录不能点赞
+            return new Result(Code.LOGIN_ERR, null, "请先登录！");
+        }
+        //查询是否点赞过
+        Boolean b = postsService.selectUserLikes(postsLikes);
+        if (b) {
+            //已经点过赞
+            return new Result(Code.LIKES_ERR, null, "已经点过赞了!");
+        }
+        //添加点赞
+        Integer i = postsService.insertPostsLikes(postsLikes);
+        Integer code = i != null && i > 0 ? Code.LIKES_SUCCESS : Code.LIKES_ERR;
+        String msg = i != null && i > 0 ? "点赞成功!" : "网络繁忙，请稍后试!";
         return new Result(code, null, msg);
     }
 }
